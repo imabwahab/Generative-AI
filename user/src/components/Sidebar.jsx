@@ -11,8 +11,7 @@ const Sidebar = ({ extended, setExtended, isMobile, setMobileOpen }) => {
       ${extended ? "w-56" : "w-16"}`}
     >
       {/* Sidebar Header */}
-      <div className="absolute w-full top-0 flex justify-between items-center p-5 cursor-pointer hover:bg-gray-800 border-b border-gray-700">
-        {extended && <span className="font-semibold tracking-wide">SideBar</span>}
+      <div className="absolute w-full z-50 top-0 flex justify-between items-center p-5 cursor-pointer hover:bg-gray-800 border-b border-gray-700">
 
         {/* Mobile close button */}
         {isMobile && (
