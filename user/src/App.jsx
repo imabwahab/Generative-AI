@@ -10,8 +10,8 @@ const App = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar for large screens */}
+    <div className="flex h-screen transition-all duration-200 overflow-hidden">
+      {/* Desktop Sidebar (takes layout space) */}
       <div className="hidden sm:flex">
         <Sidebar
           extended={extended}
@@ -20,17 +20,16 @@ const App = () => {
         />
       </div>
 
-      {/* Sidebar for mobile (overlay) */}
+      {/* Mobile Sidebar Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 sm:hidden">
-          {/* backdrop */}
+        <div className="fixed inset-0 z-50 sm:hidden">
+          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/50"
             onClick={() => setMobileOpen(false)}
-          ></div>
-
-          {/* sidebar panel */}
-          <div className="relative z-50">
+          />
+          {/* Sidebar panel (left) */}
+          <div className="absolute left-0 top-0 bottom-0 z-50">
             <Sidebar
               extended={true}
               setExtended={setExtended}
@@ -41,23 +40,23 @@ const App = () => {
         </div>
       )}
 
-      {/* Main Wrapper (content area) */}
-      <div className="flex-1 flex flex-col bg-gradient-to-br from-gray-800 via-gray-850 to-gray-900 text-white">
-        {/* Navbar - fixed at top */}
+      {/* Main area */}
+      <div className="flex-1 flex flex-col bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 text-white">
+        {/* Navbar (fixed top) */}
         <Navbar
           extended={extended}
           setExtended={setExtended}
-          setMobileOpen={setMobileOpen}
           mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
         />
 
-        {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto pt-16 pb-16">
+        {/* Scrollable content area (space reserved for navbar & searchbar) */}
+        <div className="flex-1 overflow-auto pt-16 pb-20">
           <MainContent />
         </div>
 
-        {/* Search Bar - fixed at bottom */}
-        <AISearchBar />
+        {/* Search bar (fixed bottom) */}
+        <AISearchBar extended={extended} mobileOpen={mobileOpen} />
       </div>
     </div>
   );

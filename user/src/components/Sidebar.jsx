@@ -4,36 +4,31 @@ import panda from "../assets/panda.png";
 import { chatsTitle } from "../assets/assets";
 
 const Sidebar = ({ extended, setExtended, isMobile, setMobileOpen }) => {
+  // width classes: w-56 (expanded) or w-16 (collapsed)
+  const className = `h-screen bg-gray-900 text-gray-200 flex flex-col transition-all duration-300 shadow-lg border-r border-gray-800 ${
+    extended ? "w-56" : "w-16"
+  }`;
+
   return (
-    <div
-      className={`h-screen relative bg-gray-900 text-gray-200 flex flex-col 
-      transition-all duration-300 shadow-lg border-r border-gray-800
-      ${extended ? "w-56" : "w-16"}`}
-    >
-      {/* Sidebar Header */}
-      <div className="absolute w-full z-50 top-0 flex justify-between items-center p-5 cursor-pointer hover:bg-gray-800 border-b border-gray-700">
+    <aside className={className}>
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+        {extended && <span className="font-semibold tracking-wide">SideBar</span>}
 
-        {/* Mobile close button */}
-        {isMobile && (
-          <button onClick={() => setMobileOpen(false)}>
-            <GoSidebarExpand className="text-xl" />
+        {/* Mobile close (when sidebar is overlay) */}
+        {isMobile ? (
+          <button onClick={() => setMobileOpen && setMobileOpen(false)} className="p-2 rounded-md hover:bg-gray-800">
+            <GoSidebarExpand className="w-5 h-5" />
           </button>
-        )}
-
-        {/* Desktop toggle button */}
-        {!isMobile && (
-          <button onClick={() => setExtended(!extended)}>
-            {extended ? (
-              <GoSidebarExpand className="text-xl" />
-            ) : (
-              <GoSidebarCollapse className="text-xl" />
-            )}
+        ) : (
+          <button onClick={() => setExtended(!setExtended ? false : !extended)} className="p-2 rounded-md hover:bg-gray-800" aria-label="Toggle sidebar">
+            {extended ? <GoSidebarExpand className="w-5 h-5" /> : <GoSidebarCollapse className="w-5 h-5" />}
           </button>
         )}
       </div>
 
-      {/* Top Section */}
-      <div className="pt-18 px-2 flex flex-col gap-3">
+      {/* Top actions */}
+      <div className="px-2 pt-4 flex flex-col gap-3">
         <div className="flex bg-blue-500 items-center gap-2 py-2 px-3 cursor-pointer hover:bg-blue-600 rounded-lg transition">
           <FaPlus />
           {extended && <span className="text-sm font-medium">New Chat</span>}
@@ -45,17 +40,14 @@ const Sidebar = ({ extended, setExtended, isMobile, setMobileOpen }) => {
         </div>
       </div>
 
-      {/* Recent Chats Scrollable Section */}
-      <div className="flex-1 mt-4 overflow-y-auto pb-15">
+      {/* Recent list */}
+      <div className="flex-1 overflow-y-auto mt-4 px-2">
         {extended && (
           <>
-            <p className="px-4 mb-2 text-xs uppercase text-gray-400">Recent</p>
-            <div className="flex flex-col gap-1 px-2">
+            <p className="mb-2 text-xs uppercase text-gray-400">Recent</p>
+            <div className="flex flex-col gap-1">
               {chatsTitle.map((chat) => (
-                <div
-                  key={chat.id}
-                  className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-800 rounded-lg transition"
-                >
+                <div key={chat.id} className="flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-gray-800 rounded-lg transition">
                   <p className="truncate text-sm w-40">{chat.title}</p>
                 </div>
               ))}
@@ -64,18 +56,14 @@ const Sidebar = ({ extended, setExtended, isMobile, setMobileOpen }) => {
         )}
       </div>
 
-      {/* Bottom Section */}
-      <div className="absolute bottom-0 w-full bg-gray-900 border-t border-gray-700">
-        <div className="px-3 py-3 flex flex-row items-center gap-3 border-t border-gray-700">
-          <img
-            src={panda}
-            className="h-8 w-8 rounded-full border border-gray-400"
-            alt="User Avatar"
-          />
+      {/* Footer */}
+      <div className="px-3 py-3 border-t border-gray-700">
+        <div className="flex items-center gap-3">
+          <img src={panda} className="h-10 w-10 rounded-full border border-gray-400" alt="User Avatar" />
           {extended && <p className="font-bold text-sm">Panda</p>}
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
