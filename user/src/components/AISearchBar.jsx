@@ -25,7 +25,7 @@ const AISearchBar = ({ extended, mobileOpen }) => {
 
     const { data } = await axios.post('http://localhost:3001/api/generate', { prompt: value });
     if (data.success) {
-      setResponse(parse(data.content));
+      setResponse(data.content);
     } else {
       toast.error(data.message);
     }

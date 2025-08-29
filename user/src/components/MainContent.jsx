@@ -1,16 +1,16 @@
-import React, { useState } from "react";
 import QuickSearchCards from "./QuickSearchCards";
 import Loader from "./Loader";
 import profile from '../assets/panda.png'
 import { useAppContext } from "../context/context";
 import { RiGeminiFill } from "react-icons/ri";
-import ReactMarkdown from "react-markdown"
+import MarkdownRenderer from "../utils/MarkdownRenderer";
 
 const MainContent = () => {
   const { prompt, showResult, loading, response } = useAppContext();
 
   return (
-    <main className="p-6">
+    <main className="p-2 md:p-6">
+
       {!showResult && (
         <>
           <QuickSearchCards />
@@ -27,22 +27,21 @@ const MainContent = () => {
       )}
 
       {
-        showResult && <div className="flex flex-col gap-3">
-          <div className="grid py-2 items-center text-white grid-cols-[48px_1fr] gap-5">
+        showResult && <div className="flex px-5 md:px-20 flex-col gap-3 ">
+          <div className="grid py-2 items-center text-white grid-cols-[48px_1fr] gap-2 md:gap-5">
             <img src={profile} alt="panda" className="w-10 h-10" />
             <h3 className="text-white font-semibold p-2">{prompt} </h3>
           </div>
           {
             loading ? (<Loader />) : (
-              <div className="grid py-2 text-white grid-cols-[48px_1fr] gap-5">
+              <div className="grid py-2 text-white  grid-cols-1 md:grid-cols-[48px_1fr] gap-1 md:gap-3">
 
-                <div className="flex justify-start">
+                <div className="hidden md:flex justify-start">
                   <RiGeminiFill className="w-9 h-9 mt-1 rounded-full bg-gradient-to-tr from-[#ff4e50] to-[#5b5ddf] text-white flex items-center justify-center" />
                 </div>
-                <div
-                  className="p-2 prose prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: response }}
-                />
+                <div className="p-2">
+                  <MarkdownRenderer response={response} />
+                </div>
 
               </div>
 

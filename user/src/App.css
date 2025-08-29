@@ -3,3 +3,21 @@
 ::-webkit-scrollbar{
   display: none;
 }
+
+
+.markdown-response strong {
+  font-weight: 600;
+}
+
+.markdown-response code {
+  background-color: #ef8e8e;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+}
+
+.markdown-response pre {
+  background-color: #272822;
+  color: #f8f8f2;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
