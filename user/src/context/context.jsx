@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { parse } from "marked";
 import axios from 'axios';
 
 const AppContext = createContext();
@@ -13,11 +12,32 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  useEffect(() => {
-    console.log(prompt);
-  }, [prompt]);
+  const generateContent = async (prompt) => {
+    const value = prompt;
+    if (!value) {
+      return toast.error('please enter the prompt');
+    }
 
-  const value = { prompt, setPrompt, showResult, setShowResult, loading, setLoading, response, setResponse };
+    try {
+      setPrompt(value);
+      setLoading(true);
+      setShowResult(true);
+
+      const { data } = await axios.post('http://localhost:3001/api/generate', { prompt: value });
+      if (data.success) {
+        setResponse(data.content);
+      } else {
+        setResponse('There is error while sending the request');
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const value = { prompt, setPrompt, showResult, setShowResult, loading, setLoading, response, setResponse, generateContent };
 
   return (
     <AppContext.Provider value={value} >

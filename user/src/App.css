@@ -1,3 +1,6 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
 @import "tailwindcss";
 
 ::-webkit-scrollbar{
@@ -5,19 +8,15 @@
 }
 
 
-.markdown-response strong {
-  font-weight: 600;
+* {
+  font-family: 'Poppins', sans-serif;
 }
 
-.markdown-response code {
-  background-color: #ef8e8e;
-  font-family: 'Courier New', monospace;
-  font-size: 0.95em;
-}
-
-.markdown-response pre {
-  background-color: #272822;
-  color: #f8f8f2;
-  border-radius: 6px;
-  font-size: 0.9em;
+@keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }

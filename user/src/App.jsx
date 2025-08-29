@@ -45,7 +45,7 @@ const App = () => {
         )}
 
         {/* Main area */}
-        <div className="flex-1 flex flex-col bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 text-white">
+        <div className="flex-1 flex flex-col bg-gray-800 text-white">
           {/* Navbar (fixed top) */}
           <Navbar
             extended={extended}

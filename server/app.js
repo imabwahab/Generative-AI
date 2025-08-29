@@ -11,8 +11,8 @@ app.use(cors());
 // Routes
 
 app.get('/', (req, res) => {
-  console.log('Recieved a request at /');
-  res.send(' Got the request at / ');
+  console.log('GAP AI backend.')
+  res.send(' GAP AI backend. ');
 });
 
 app.use('/api', generateContentRouter);

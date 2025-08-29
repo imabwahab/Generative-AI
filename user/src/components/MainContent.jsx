@@ -12,7 +12,7 @@ const MainContent = () => {
     <main className="p-2 md:p-6">
 
       {!showResult && (
-        <>
+        <div className="p-4" >
           <QuickSearchCards />
           <section className="mt-10">
             <h3 className="text-lg font-semibold mb-4">More</h3>
@@ -23,7 +23,7 @@ const MainContent = () => {
               <div className="bg-white/5 p-4 rounded-lg">Another block</div>
             </div>
           </section>
-        </>
+        </div>
       )}
 
       {
@@ -34,12 +34,12 @@ const MainContent = () => {
           </div>
           {
             loading ? (<Loader />) : (
-              <div className="grid py-2 text-white  grid-cols-1 md:grid-cols-[48px_1fr] gap-1 md:gap-3">
+              <div className="grid  text-white  grid-cols-1 md:grid-cols-[48px_1fr] gap-1 md:gap-3">
 
                 <div className="hidden md:flex justify-start">
                   <RiGeminiFill className="w-9 h-9 mt-1 rounded-full bg-gradient-to-tr from-[#ff4e50] to-[#5b5ddf] text-white flex items-center justify-center" />
                 </div>
-                <div className="p-2">
+                <div>
                   <MarkdownRenderer response={response} />
                 </div>
 

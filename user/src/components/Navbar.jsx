@@ -25,7 +25,7 @@ const Navbar = ({ extended, mobileOpen, setMobileOpen }) => {
   return (
     <nav
       style={style}
-      className="fixed top-0 z-40 h-15 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700"
+      className="fixed top-0 z-40 h-15  bg-gray-800 shadow-sm border-b border-gray-700"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ const Navbar = ({ extended, mobileOpen, setMobileOpen }) => {
             {mobileOpen ? <GoSidebarExpand className="w-6 h-6" /> : <GoSidebarCollapse className="w-6 h-6" />}
           </button>
 
-          <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-wide">GAP AI</span>
+          <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-wide">FormAI</span>
         </div>
 
         <div className="flex items-center gap-4">

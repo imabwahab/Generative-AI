@@ -3,40 +3,17 @@ import { FaSearch } from "react-icons/fa";
 import { IoMicOutline } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
 import { useAppContext } from "../context/context.jsx";
-import toast from "react-hot-toast";
-import { parse } from "marked";
-import axios from "axios";
+
 
 const AISearchBar = ({ extended, mobileOpen }) => {
 
-  const { setPrompt, setLoading, setShowResult, setResponse } = useAppContext();
+  const { generateContent } = useAppContext();
   const promptRef = useRef(null);
 
-  const generateContent = async () => {
-  const value = promptRef.current?.value;
-  if (!value) {
-    return toast.error('please enter the prompt');
-  }
-
-  try {
-    setPrompt(value);
-    setLoading(true);
-    setShowResult(true);
-
-    const { data } = await axios.post('http://localhost:3001/api/generate', { prompt: value });
-    if (data.success) {
-      setResponse(data.content);
-    } else {
-      toast.error(data.message);
-    }
-  } catch (error) {
-    toast.error(error.message);
-  } finally {
+  const HandlePrompt = () => {
+    generateContent(promptRef.current.value);
     promptRef.current.value = '';
-    setLoading(false);
   }
-};
-
 
   const [isDesktop, setIsDesktop] = useState(
     typeof window !== "undefined" ? window.innerWidth >= 640 : false
@@ -60,9 +37,15 @@ const AISearchBar = ({ extended, mobileOpen }) => {
   return (
     <div
       style={style}
-      className="fixed bottom-0 z-40 flex justify-center pb-4 pt-3 px-4 border-t border-gray-700 bg-gray-900"
+      className="fixed bottom-0 z-40 flex justify-center pb-4 pt-[11px] px-4 border-t border-gray-700 bg-gray-800"
     >
-      <div className="flex items-center w-full max-w-2xl bg-gray-800 rounded-2xl shadow-md border border-gray-700 px-4 py-2 gap-3">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();   // prevent page refresh
+          HandlePrompt();
+        }}
+        className="flex items-center w-full max-w-2xl bg-gray-800 rounded-2xl shadow-md border border-gray-700 px-4 py-2 gap-3"
+      >
         <FaSearch className="text-gray-400 w-5 h-5" />
         <input
           type="text"
@@ -71,6 +54,7 @@ const AISearchBar = ({ extended, mobileOpen }) => {
           className="flex-1 bg-transparent focus:outline-none text-white placeholder-gray-400 text-sm"
         />
         <button
+          type="button"
           className="text-gray-400 hover:text-indigo-400 transition"
           aria-label="Voice"
         >
@@ -78,15 +62,15 @@ const AISearchBar = ({ extended, mobileOpen }) => {
         </button>
         <button
           type="submit"
-          onClick={() => generateContent()}
           className="text-gray-400 hover:text-indigo-400 transition"
           aria-label="Send"
         >
           <FiSend className="w-5 h-5" />
         </button>
-      </div>
+      </form>
     </div>
   );
+
 };
 
 export default AISearchBar;
