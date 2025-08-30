@@ -11,7 +11,6 @@ app.use(cors());
 // Routes
 
 app.get('/', (req, res) => {
-  console.log('GAP AI backend.')
   res.send(' GAP AI backend. ');
 });
 

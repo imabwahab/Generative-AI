@@ -4,7 +4,6 @@ const QuickSearchCards = () => {
 
   const { generateContent } = useAppContext();
   const HandleQuickSearch = (prompt) => {
-    console.log(prompt);
     generateContent(prompt);
   }
 

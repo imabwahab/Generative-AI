@@ -14,7 +14,6 @@ const Sidebar = ({ extended, setExtended, isMobile, setMobileOpen }) => {
   const [search, setSearch] = useState('');
 
   const HandleNewChat = () => {
-    console.log('New Chat opened.');
     setShowResult(false);
   }
 
