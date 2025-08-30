@@ -23,7 +23,7 @@ export const AppProvider = ({ children }) => {
       setLoading(true);
       setShowResult(true);
 
-      const { data } = await axios.post('http://localhost:3001/api/generate', { prompt: value });
+      const { data } = await axios.post('/api/generate', { prompt: value });
       if (data.success) {
         setResponse(data.content);
       } else {
