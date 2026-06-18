@@ -1,5 +1,6 @@
 import { cardsData } from "../assets/assets";
 import { useAppContext } from "../context/context";
+
 const QuickSearchCards = () => {
 
   const { generateContent } = useAppContext();
@@ -8,18 +9,19 @@ const QuickSearchCards = () => {
   }
 
   return (
-    <section className="pt-4">
-      <h2 className="text-2xl font-semibold text-white mb-6">Quick Search with AI</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+    <section>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         {cardsData.map((card) => (
           <button
             key={card.id}
             onClick={() => HandleQuickSearch(card.title)}
-            className="aspect-square rounded-2xl bg-white/5 hover:bg-white/10 transition  flex flex-col items-center justify-center shadow"
+            className="group aspect-square rounded-2xl bg-white/[0.04] border border-white/10 hover:border-indigo-500/40 hover:bg-white/[0.07] transition flex flex-col items-center justify-center p-3 text-center"
           >
-            <div className="text-indigo-400  mb-3"><card.icon className="w-7 h-7" /></div>
-            <div className="text-white font-medium">{card.title}</div>
-            <p className="text-xs text-gray-300 mt-1 text-center">{card.desc}</p>
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-300 group-hover:bg-indigo-500/20 group-hover:text-indigo-200 transition">
+              <card.icon className="w-5 h-5" />
+            </div>
+            <div className="text-slate-100 text-sm font-medium">{card.title}</div>
+            <p className="text-xs text-slate-400 mt-1 leading-snug">{card.desc}</p>
           </button>
         ))}
       </div>

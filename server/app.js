@@ -11,7 +11,7 @@ app.use(cors());
 // Routes
 
 app.get('/', (req, res) => {
-  res.send(' GAP AI backend. ');
+  res.send('Sage AI backend is running.');
 });
 
 app.use('/api', generateContentRouter);

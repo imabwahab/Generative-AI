@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import profile from "../assets/panda.png";
 import { GoSidebarExpand, GoSidebarCollapse } from "react-icons/go";
+import Logo from "./Logo";
 
 const Navbar = ({ extended, mobileOpen, setMobileOpen }) => {
   // track desktop breakpoint so we can offset the fixed navbar
@@ -25,25 +26,30 @@ const Navbar = ({ extended, mobileOpen, setMobileOpen }) => {
   return (
     <nav
       style={style}
-      className="fixed top-0 z-40 h-15  bg-gray-800 shadow-sm border-b border-gray-700"
+      className="fixed top-0 z-40 h-15 bg-[#0b0d12]/80 backdrop-blur-md border-b border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           {/* Mobile toggle */}
           <button
-            className="sm:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+            className="sm:hidden p-2 rounded-md text-slate-300 hover:bg-white/10 transition"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle sidebar"
           >
             {mobileOpen ? <GoSidebarExpand className="w-6 h-6" /> : <GoSidebarCollapse className="w-6 h-6" />}
           </button>
 
-          <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-wide">FormAI</span>
+          <div className="flex items-center gap-2">
+            <Logo className="w-7 h-7" />
+            <span className="text-xl font-bold tracking-wide bg-gradient-to-r from-indigo-300 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
+              Sage
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
           <img
-            className="h-9 w-9 rounded-full border-2 border-indigo-500 shadow-sm cursor-pointer hover:scale-105 transition-transform"
+            className="h-9 w-9 rounded-full border border-white/15 shadow-sm cursor-pointer hover:ring-2 hover:ring-indigo-500/50 transition"
             src={profile}
             alt="User avatar"
           />

@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { FaSearch } from "react-icons/fa";
 import { IoMicOutline } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
 import { useAppContext } from "../context/context.jsx";
@@ -7,11 +6,12 @@ import { useAppContext } from "../context/context.jsx";
 
 const AISearchBar = ({ extended, mobileOpen }) => {
 
-  const { generateContent } = useAppContext();
+  const { generateContent, loading } = useAppContext();
   const promptRef = useRef(null);
 
   const HandlePrompt = () => {
-    generateContent(promptRef.current.value);
+    const value = promptRef.current.value;
+    generateContent(value);
     promptRef.current.value = '';
   }
 
@@ -37,37 +37,38 @@ const AISearchBar = ({ extended, mobileOpen }) => {
   return (
     <div
       style={style}
-      className="fixed bottom-0 z-40 flex justify-center pb-4 pt-[11px] px-4 border-t border-gray-700 bg-gray-800"
+      className="fixed bottom-0 z-40 flex flex-col items-center pb-4 pt-3 px-4 bg-gradient-to-t from-[#0b0d12] via-[#0b0d12] to-transparent"
     >
       <form
         onSubmit={(e) => {
           e.preventDefault();   // prevent page refresh
           HandlePrompt();
         }}
-        className="flex items-center w-full max-w-2xl bg-gray-800 rounded-2xl shadow-md border border-gray-700 px-4 py-2 gap-3"
+        className="flex items-center w-full max-w-2xl bg-white/[0.05] rounded-2xl shadow-lg border border-white/10 focus-within:border-indigo-500/50 focus-within:ring-1 focus-within:ring-indigo-500/40 transition px-3 py-2 gap-2"
       >
-        <FaSearch className="text-gray-400 w-5 h-5" />
         <input
           type="text"
           ref={promptRef}
-          placeholder="Ask AI anything..."
-          className="flex-1 bg-transparent focus:outline-none text-white placeholder-gray-400 text-sm"
+          placeholder="Ask Sage anything..."
+          className="flex-1 bg-transparent focus:outline-none text-slate-100 placeholder-slate-500 text-sm px-2"
         />
         <button
           type="button"
-          className="text-gray-400 hover:text-indigo-400 transition"
+          className="p-2 rounded-lg text-slate-400 hover:text-indigo-300 hover:bg-white/5 transition"
           aria-label="Voice"
         >
           <IoMicOutline className="w-5 h-5" />
         </button>
         <button
           type="submit"
-          className="text-gray-400 hover:text-indigo-400 transition"
+          disabled={loading}
+          className="p-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed transition"
           aria-label="Send"
         >
           <FiSend className="w-5 h-5" />
         </button>
       </form>
+      <p className="mt-2 text-[11px] text-slate-500">Sage can make mistakes. Double-check important info.</p>
     </div>
   );
 

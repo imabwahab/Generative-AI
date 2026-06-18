@@ -45,7 +45,7 @@ const App = () => {
         )}
 
         {/* Main area */}
-        <div className="flex-1 flex flex-col bg-gray-800 text-white">
+        <div className="flex-1 flex flex-col bg-[#0b0d12] text-slate-100">
           {/* Navbar (fixed top) */}
           <Navbar
             extended={extended}
@@ -55,7 +55,7 @@ const App = () => {
           />
 
           {/* Scrollable content area (space reserved for navbar & searchbar) */}
-          <div className="flex-1 overflow-auto pt-12 pb-20">
+          <div className="flex-1 overflow-auto pt-16 pb-32">
             <MainContent />
           </div>
 

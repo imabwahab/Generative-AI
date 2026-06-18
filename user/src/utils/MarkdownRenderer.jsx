@@ -24,7 +24,7 @@ const MarkdownRenderer = ({ response }) => {
                 </SyntaxHighlighter>
               </div>
             ) : (
-              <code className="bg-red-800 px-1 py-0.5 rounded text-sm break-words whitespace-pre-wrap">
+              <code className="bg-white/10 text-indigo-200 px-1.5 py-0.5 rounded text-[13px] break-words whitespace-pre-wrap">
                 {children}
               </code>
             );
