@@ -7,6 +7,7 @@ const AppContext = createContext();
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 
 const STORAGE_KEY = 'gap-ai-chats';
+const ACTIVE_KEY = 'gap-ai-active-chat';
 
 // Small unique id helper for chat sessions
 const createId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -22,8 +23,15 @@ export const AppProvider = ({ children }) => {
     }
   });
 
-  // null => no chat open (show the welcome screen / "New Chat")
-  const [activeChatId, setActiveChatId] = useState(null);
+  // Which chat is open. Persisted so a reload keeps you in the same
+  // conversation instead of silently starting a new one on the next message.
+  const [activeChatId, setActiveChatId] = useState(() => {
+    try {
+      return localStorage.getItem(ACTIVE_KEY) || null;
+    } catch {
+      return null;
+    }
+  });
   const [loading, setLoading] = useState(false);
 
   // Persist chats whenever they change
@@ -34,6 +42,16 @@ export const AppProvider = ({ children }) => {
       // ignore quota / serialization errors
     }
   }, [chats]);
+
+  // Persist the open chat id (null => welcome screen)
+  useEffect(() => {
+    try {
+      if (activeChatId) localStorage.setItem(ACTIVE_KEY, activeChatId);
+      else localStorage.removeItem(ACTIVE_KEY);
+    } catch {
+      // ignore
+    }
+  }, [activeChatId]);
 
   const activeChat = chats.find((c) => c.id === activeChatId) || null;
   const messages = activeChat?.messages ?? [];
@@ -65,9 +83,11 @@ export const AppProvider = ({ children }) => {
     }
     if (loading) return;
 
-    // Use the open chat, or create a new one titled from this prompt
+    // Continue the open chat only if it still exists; otherwise start a new
+    // one titled from this prompt. (Guards against a stale/deleted id.)
     let chatId = activeChatId;
-    if (!chatId) {
+    const chatExists = chatId && chats.some((c) => c.id === chatId);
+    if (!chatExists) {
       chatId = createId();
       const title = value.length > 40 ? `${value.slice(0, 40)}…` : value;
       const session = {
